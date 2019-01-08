@@ -1,0 +1,400 @@
+{
+  "ApplicationName": "FarmerToBuyerPipelineWithIoT",
+  "DisplayName": "Farmer-to-buyerPipeline with refrigerated transportation",
+  "Description": "Application to track end-to-end transportation of perishable goods and sell it for end user.",
+  "ApplicationRoles": [
+    {
+      "Name": "Farmer",
+      "Description": "Person who makes goods"
+    },
+    {
+      "Name": "Provisioner",
+      "Description": "A Person who makes transportation."
+    },
+    {
+      "Name": "Device",
+      "Description": "A device to track humidity and temperature."
+    },
+    {
+      "Name": "Seller",
+      "Description": "Store."
+    },
+    {
+      "Name": "Buyer",
+      "Description": "End user who buys goods."
+    }
+  ],
+  "Workflows": [
+    {
+      "Name": "TelemetryCompliance",
+      "DisplayName": "Refrigerated Transportation",
+      "Description": "Main workflow to track end-to-end transportation of perishable goods.",
+      "Initiators": [ "Farmer" ],
+      "StartState": "Created",
+      "Properties": [
+        {
+          "Name": "State",
+          "DisplayName": "State",
+          "Description": "Holds the state of the contract",
+          "Type": {
+            "Name": "state"
+          }
+        },
+        {
+          "Name": "Provisioner",
+          "DisplayName": "Provisioner",
+          "Description": "Makes transportation.",
+          "Type": {
+            "Name": "Provisioner"
+          }
+        },
+        {
+          "Name": "Seller",
+          "DisplayName": "Seller",
+          "Description": "Store.",
+          "Type": {
+            "Name": "Seller"
+          }
+        },
+        {
+          "Name": "Buyer",
+          "DisplayName": "Buyer",
+          "Description": "End user who buys goods.",
+          "Type": {
+            "Name": "Buyer"
+          }
+        },
+        {
+          "Name": "Device",
+          "DisplayName": "Device",
+          "Description": "The device used to track humidity and temperature of the shipment.",
+          "Type": {
+            "Name": "Device"
+          }
+        },
+        {
+          "Name": "MinHumidity",
+          "DisplayName": "Min Humidity",
+          "Description": "Minimum humidity requirement.",
+          "Type": {
+            "Name": "int"
+          }
+        },
+        {
+          "Name": "MaxHumidity",
+          "DisplayName": "Max Humidity",
+          "Description": "Max humidity requirement.",
+          "Type": {
+            "Name": "int"
+          }
+        },
+        {
+          "Name": "MinTemperature",
+          "DisplayName": "Min Temperature",
+          "Description": "Min temperature requirement.",
+          "Type": {
+            "Name": "int"
+          }
+        },
+        {
+          "Name": "MaxTemperature",
+          "DisplayName": "Max Temperature",
+          "Description": "Max temperature requirement.",
+          "Type": {
+            "Name": "int"
+          }
+        },
+        {
+          "Name": "ComplianceSensorType",
+          "DisplayName": "Sensor Type",
+          "Description": "The type of IoT sensor used to read out of compliance reading. Either humidity or temperature.",
+          "Type": {
+            "Name": "int"
+          }
+        },
+        {
+          "Name": "ComplianceStatus",
+          "DisplayName": "Status",
+          "Description": "Boolean to indicate whether the shipment is in compliance or not.",
+          "Type": {
+            "Name": "bool"
+          }
+        },
+        {
+          "Name": "ComplianceDetail",
+          "DisplayName": "Detail",
+          "Description": "A friendly string indicating the issue and sensor reading.",
+          "Type": {
+            "Name": "string"
+          }
+        },
+        {
+          "Name": "LastSensorUpdateTimestamp",
+          "DisplayName": "Sensor Time",
+          "Description": "The time the sensor reading was taken.",
+          "Type": {
+            "Name": "int"
+          }
+        }
+      ],
+      "Constructor": {
+        "Parameters": [
+          {
+            "Name": "Price",
+            "Description": "Price",
+            "DisplayName": "Price",
+            "Type": {
+              "Name": "int"
+            }
+          },
+          {
+            "Name": "Quantity",
+            "Description": "Quantity",
+            "DisplayName": "Quantity",
+            "Type": {
+              "Name": "int"
+            }
+          },
+          {
+            "Name": "Description",
+            "Description": "Description",
+            "DisplayName": "Description",
+            "Type": {
+              "Name": "string"
+            }
+          },
+          {
+            "Name": "minHumidity",
+            "Description": "...",
+            "DisplayName": "Min Humidity",
+            "Type": {
+              "Name": "int"
+            }
+          },
+          {
+            "Name": "maxHumidity",
+            "Description": "...",
+            "DisplayName": "Max Humidity",
+            "Type": {
+              "Name": "int"
+            }
+          },
+          {
+            "Name": "minTemperature",
+            "Description": "...",
+            "DisplayName": "Min Temperature",
+            "Type": {
+              "Name": "int"
+            }
+          },
+          {
+            "Name": "maxTemperature",
+            "Description": "...",
+            "DisplayName": "Max Temperature",
+            "Type": {
+              "Name": "int"
+            }
+          }
+        ]
+      },
+      "Functions": [
+        {
+          "Name": "IngestTelemetry",
+          "DisplayName": "Ingest Telemetry",
+          "Description": "...",
+          "Parameters": [
+            {
+              "Name": "humidity",
+              "Description": "...",
+              "DisplayName": "Humidity",
+              "Type": {
+                "Name": "int"
+              }
+            },
+            {
+              "Name": "temperature",
+              "Description": "...",
+              "DisplayName": "Temperature",
+              "Type": {
+                "Name": "int"
+              }
+            },
+            {
+              "Name": "timestamp",
+              "Description": "...",
+              "DisplayName": "Timestamp",
+              "Type": {
+                "Name": "int"
+              }
+            }
+          ]
+        },
+        {
+          "Name": "BuyItem",
+          "DisplayName": "BuyItem",
+          "Description": "...",
+          "Parameters": [
+            {
+              "Name": "quantity",
+              "Description": "...",
+              "DisplayName": "quantity",
+              "Type": {
+                "Name": "int"
+              }
+            }
+          ]
+        },
+        {
+          "Name": "Terminate",
+          "DisplayName": "Terminate",
+          "Description": "...",
+          "Parameters": []
+        }
+      ],
+      "States": [
+        {
+          "Name": "Created",
+          "DisplayName": "Created",
+          "Description": "...",
+          "PercentComplete": 20,
+          "Value": 0,
+          "Style": "Success",
+          "Transitions": [
+            {
+              "AllowedRoles": [],
+              "AllowedInstanceRoles": [ "Provisioner" ],
+              "Description": "...",
+              "Function": "",
+              "NextStates": [ "ProvisionerBought" ],
+              "DisplayName": "Creates position"
+            }
+          ]
+        },
+        {
+          "Name": "ProvisionerBought",
+          "DisplayName": "ProvisionerBought",
+          "Description": "...",
+          "PercentComplete": 40,
+          "Value": 1,
+          "Style": "Success",
+          "Transitions": [
+            {
+              "AllowedRoles": [],
+              "AllowedInstanceRoles": [ "Seller" ],
+              "Description": "...",
+              "Function": "MarkAgreed",
+              "NextStates": [ "SellerAgreed" ],
+              "DisplayName": "SellerAgreed"
+            },
+            {
+              "AllowedRoles": [],
+              "AllowedInstanceRoles": [ "Provisioner" ],
+              "Description": "...",
+              "Function": "MarkAgreed",
+              "NextStates": [ "ProvisionerAgreed"],
+              "DisplayName": "ProvisionerAgreed"
+            }
+          ]
+        },
+        {
+          "Name": "SellerAgreed",
+          "DisplayName": "SellerAgreed",
+          "Description": "...",
+          "PercentComplete": 60,
+          "Value": 2,
+          "Style": "Success",
+          "Transitions": [
+            {
+              "AllowedRoles": [],
+              "AllowedInstanceRoles": [ "Provisioner" ],
+              "Description": "...",
+              "Function": "MarkAgreed",
+              "NextStates": [ "TransitPending"],
+              "DisplayName": "TransitPending"
+            }
+          ]
+        },
+        {
+          "Name": "ProvisionerAgreed",
+          "DisplayName": "ProvisionerAgreed",
+          "Description": "...",
+          "PercentComplete": 60,
+          "Value": 3,
+          "Style": "Success",
+          "Transitions": [
+            {
+              "AllowedRoles": [],
+              "AllowedInstanceRoles": [ "Seller" ],
+              "Description": "...",
+              "Function": "MarkAgreed",
+              "NextStates": [ "TransitPending"],
+              "DisplayName": "TransitPending"
+            }
+          ]
+        },
+        {
+          "Name": "TransitPending",
+          "DisplayName": "TransitPending",
+          "Description": "...",
+          "PercentComplete": 70,
+          "Value": 4,
+          "Style": "Success",
+          "Transitions": [
+            {
+              "AllowedRoles": [],
+              "AllowedInstanceRoles": [ "Provisioner" ],
+              "Description": "...",
+              "Function": "MarkInTransit",
+              "NextStates": [ "InTransit"],
+              "DisplayName": "InTransit"
+            }
+          ]
+        },
+        {
+          "Name": "InTransit",
+          "DisplayName": "InTransit",
+          "Description": "...",
+          "PercentComplete": 80,
+          "Value": 5,
+          "Style": "Success",
+          "Transitions": [
+            {
+              "AllowedRoles": [],
+              "AllowedInstanceRoles": [ "Seller" ],
+              "Description": "...",
+              "Function": "MarkReadyForSell",
+              "NextStates": [ "ReadyForSell"],
+              "DisplayName": "ReadyForSell"
+            },
+            {
+              "AllowedRoles": [],
+              "AllowedInstanceRoles": [ "Device" ],
+              "Description": "...",
+              "Function": "IngestTelemetry",
+              "NextStates": [ "OutOfCompliance"],
+              "DisplayName": "OutOfCompliance"
+            }
+          ]
+        },
+        {
+          "Name": "OutOfCompliance",
+          "DisplayName": "Out Of Compliance",
+          "Description": "...",
+          "PercentComplete": 100,
+          "Value": 6,
+          "Style": "Failure",
+          "Transitions": []
+        },
+        {
+          "Name": "BuyItem",
+          "DisplayName": "BuyItem",
+          "Description": "...",
+          "PercentComplete": 100,
+          "Value": 7,
+          "Style": "Success",
+          "Transitions": []
+        }
+      ]
+    }
+  ]
+}
